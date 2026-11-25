@@ -14,9 +14,9 @@ python3 scripts/validation_cases.py dist/data                       # after a fu
 python3 scripts/validation_cases.py https://<user>.github.io/<repo>/data   # deployed site
 ```
 
-`scripts/validation_cases.py` is an independent Python implementation of the same rules the SPA uses,
-so it also cross-checks the TypeScript pricing modules. Then open the same configuration in the app
-(the numbers must be identical) and in the official calculator (USD, *Savings options* as listed).
+`scripts/validation_cases.py` independently implements the pricing formulas and fails if a reference
+price is missing. Compare its output with the app and the official calculator (USD, *Savings options*
+as listed); the official comparison is manual, not an automated CI check.
 
 ## Cases
 
@@ -28,14 +28,14 @@ so it also cross-checks the TypeScript pricing modules. Then open the same confi
 
 ## Results
 
-Status: **pending the first real data build** — the development sandbox has no network access, so
-the real exporter CSV could not be processed here. Fill in after the first workflow run:
+On 2026-11-25 the official calculator was checked using snapshot `prices-2026-11-24`.
+The disk case excludes storage transactions, snapshots and other extras.
 
 | # | This app (USD/month) | Official (USD/month) | Δ % | OK? |
 |---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
+| 1 | $572.32 | $572.32 | 0% | Yes |
+| 2 | $117.61 | $117.61 | 0% | Yes |
+| 3 | $151.68 | $122.88 + $28.80 = $151.68 | 0% | Yes |
 
 For reference, the synthetic sample snapshot (`make data-sample`, fake prices) yields
 1 = $582.13, 2 = $114.51 eq. (upfront $4,122.39), 3 = $159.17 — these only prove the formulas run

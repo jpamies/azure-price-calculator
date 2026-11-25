@@ -147,8 +147,8 @@ Details and the exact matching rules: [`docs/dev/pricing-api.md`](docs/dev/prici
 ## Limitations
 
 - Retail list prices only; Savings Plan appears only when the exporter CSV contains `SavingsPlans` rows.
-- VM vCPU/RAM specs come from `pipeline/data/vm-skus.base.json` (seeded for common families —
-  refresh with the Azure CLI script); SKUs without specs are still listed and priced.
+- VM vCPU/RAM specs come from `pipeline/data/vm-skus.base.json` (refreshed from Azure CLI;
+  some SKUs still have no specs and are listed and priced without them).
 - Generic meters need the user to understand the meter's unit (the UI explains it).
 - Icon availability depends on the official icon set (no Site Recovery icon exists; a vault icon is used).
 

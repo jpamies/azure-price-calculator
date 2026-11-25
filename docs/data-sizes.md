@@ -10,7 +10,7 @@ The pipeline prints a size report on every run (GitHub Actions job summary and
 |---|---|---|---|---|---|---|
 | Synthetic sample (`--fixture`) | 1,349 | 1,253 | 44 | 0.25 MB | 0.1 s | 26 MB |
 | Synthetic scale test (fixture rows × ~60 regions × ~150 services) | 1,160,000 | ≈ 1.1 M | 9,002 | 186 MB | ≈ 22 s (read 16 s + render 6 s) | ≈ 335 MB |
-| **Real exporter release** | ≈ 1.1 M | _fill in after the first workflow run_ | | | | |
+| **Real exporter release (2026-11-24)** | 1,330,109 | 1,122,253 | 6,580 | 206.7 MB | 17.9 s | 301 MB |
 
 The scale test ran in the development sandbox (1 vCPU); a GitHub-hosted runner is faster. The
 real catalog has a different service/region distribution, so use the job summary numbers.

@@ -103,7 +103,8 @@ it is never logged.
   `location` and geography "Other"; add new regions there).
 * `index/vm-skus.json` = [`data/vm-skus.base.json`](data/vm-skus.base.json) + every `armSkuName` of
   Virtual Machines prices (`null` when its specs are unknown). The committed base file is a hand-made seed for
-  common families (`python3 scripts/seed_vm_skus.py`). To refresh it from Azure (monthly, needs `az login`):
+  common families (`python3 scripts/seed_vm_skus.py`) and has since been refreshed from Azure. To
+  refresh it again (monthly, needs `az login`):
 
   ```bash
   bash scripts/export-vm-skus.sh   # az vm list-skus --all | scripts/reduce_vm_skus.py -> pipeline/data/vm-skus.base.json
