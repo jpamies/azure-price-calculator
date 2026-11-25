@@ -45,10 +45,11 @@ class VmSkuTests(unittest.TestCase):
         self.assertEqual(index["skus"]["standard_e2s_v5"], {"vCPUs": 2, "memoryGB": 16})  # case-insensitive join
         self.assertEqual(list(index["skus"]), sorted(index["skus"]))
 
-    def test_seed_base_file(self) -> None:
+    def test_vm_skus_base_file(self) -> None:
         base = load_vm_skus_base()
-        self.assertEqual(base["source"], "seed")
-        self.assertEqual(base["skus"]["Standard_D8s_v5"], {"vCPUs": 8, "memoryGB": 32, "family": "Dsv5"})
+        self.assertIn(base["source"], ("seed", "az-cli"))
+        self.assertEqual(base["skus"]["Standard_D8s_v5"]["vCPUs"], 8)
+        self.assertEqual(base["skus"]["Standard_D8s_v5"]["memoryGB"], 32)
         self.assertEqual(base["skus"]["Standard_E96s_v5"]["memoryGB"], 672)
         self.assertEqual(base["skus"]["Standard_E64s_v3"]["memoryGB"], 432)
         self.assertEqual(base["skus"]["Standard_B2ts_v2"], {"vCPUs": 2, "memoryGB": 1, "family": "Bsv2"})

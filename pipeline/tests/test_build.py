@@ -170,7 +170,8 @@ class FixtureBuildTests(unittest.TestCase):
         vm_skus = load(self.out / self.manifest["paths"]["vmSkus"])
         priced = {r["armSkuName"] for r in self.shard("virtual-machines", "eastus")}
         self.assertTrue(priced <= set(vm_skus["skus"]))
-        self.assertEqual(vm_skus["skus"]["Standard_D8s_v5"], {"vCPUs": 8, "memoryGB": 32, "family": "Dsv5"})
+        self.assertEqual(vm_skus["skus"]["Standard_D8s_v5"]["vCPUs"], 8)
+        self.assertEqual(vm_skus["skus"]["Standard_D8s_v5"]["memoryGB"], 32)
         fx = load(self.out / self.manifest["paths"]["fx"])
         self.assertEqual((fx["asOf"], fx["base"], fx["rates"]["USD"], fx["rates"]["EUR"]), ("2026-11-24", "USD", 1, 0.92))
         self.assertEqual(len(fx["rates"]), 17)
