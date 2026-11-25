@@ -1,5 +1,7 @@
 # Azure Price Calculator (unofficial)
 
+**[Open the calculator](https://jpamies.com/azure-price-calculator/)** — hosted on GitHub Pages.
+
 A fast, backend-free Azure price calculator that runs entirely in the browser and is hosted on
 **GitHub Pages**. It is fed by a **daily snapshot of the Azure Retail Prices API** (published by
 [`sbroenne/azureretailprices-exporter`](https://github.com/sbroenne/azureretailprices-exporter)),
