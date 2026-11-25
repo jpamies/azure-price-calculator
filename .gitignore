@@ -1,0 +1,19 @@
+# Node / web
+node_modules/
+web/dist/
+web/public/data/
+*.tsbuildinfo
+# Python / pipeline
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.cache/
+pipeline/*.egg-info/
+# Build output (GitHub Pages artifact is assembled here in CI)
+dist/
+# Editors / OS
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
