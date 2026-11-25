@@ -54,7 +54,7 @@ jobs:
 
       - name: Web unit tests
         working-directory: web
-        run: npm test
+        run: uv run --project ../pipeline npm test
 
       - name: Web build with the synthetic sample data (smoke)
         run: |

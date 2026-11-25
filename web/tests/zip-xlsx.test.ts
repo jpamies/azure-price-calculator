@@ -48,7 +48,9 @@ async function unzip(zip: Uint8Array): Promise<UnzippedEntry[]> {
 }
 
 function python(script: string, input: Uint8Array): { skipped: string | null; stdout: string; stderr: string; status: number | null } {
-  const res = spawnSync("python3", ["-c", script], { input, encoding: "utf8", timeout: 60_000 });
+  const res = spawnSync("python3", ["-c", script], {
+    input, encoding: "utf8", timeout: 60_000, env: { ...process.env, PYTHONUTF8: "1" },
+  });
   if (res.error) return { skipped: `python3 unavailable (${res.error.message})`, stdout: "", stderr: "", status: null };
   if (res.status === 3) return { skipped: "openpyxl not installed", stdout: res.stdout, stderr: res.stderr, status: res.status };
   return { skipped: null, stdout: res.stdout, stderr: res.stderr, status: res.status };
