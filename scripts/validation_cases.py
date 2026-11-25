@@ -9,8 +9,8 @@ Usage:
   python3 scripts/validation_cases.py web/public/data      # local dev snapshot
   python3 scripts/validation_cases.py https://<user>.github.io/<repo>/data
 
-Prints a Markdown table (and appends it to $GITHUB_STEP_SUMMARY when set). Never fails the build:
-missing data is reported as "n/a".
+Prints a Markdown table (and appends it to $GITHUB_STEP_SUMMARY when set). Missing reference
+prices or an unreadable snapshot fail the build; comparison with the official calculator is manual.
 """
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ def load_shard_index(base: str, manifest: dict) -> dict:
     if path:
         try:
             return read_json(base, path)
-        except Exception as exc:  # noqa: BLE001 - fall back and report, never fail the build
+        except Exception as exc:  # noqa: BLE001 - report the read failure before checking legacy data
             print(f"validation_cases: cannot read {path}: {exc}", file=sys.stderr)
     return manifest.get("shards", {})
 
@@ -110,9 +110,9 @@ def main() -> int:
         manifest = read_json(base, "manifest.json")
         services = read_json(base, manifest["paths"]["services"])
         shards = load_shard_index(base, manifest)
-    except Exception as exc:  # noqa: BLE001 - report and never fail the build
-        print(f"validation_cases: cannot read snapshot at {base}: {exc}")
-        return 0
+    except Exception as exc:  # noqa: BLE001 - report invalid or unreadable snapshot
+        print(f"validation_cases: cannot read snapshot at {base}: {exc}", file=sys.stderr)
+        return 1
 
     out = [
         f"### Validation cases (snapshot {manifest.get('pricesDate')}, source: {manifest.get('source', {}).get('type')})",
@@ -156,6 +156,9 @@ def main() -> int:
     if summary:
         with open(summary, "a", encoding="utf-8") as fh:
             fh.write(text + "\n")
+    if c1 is None or c2 is None or c3 is None:
+        print("validation_cases: one or more reference prices are missing", file=sys.stderr)
+        return 1
     return 0
 
 

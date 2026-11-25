@@ -40,7 +40,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
 
       - name: Python tests (pipeline + icon sync, pytest)
-        run: uv run --project pipeline pytest -q pipeline/tests scripts/test_sync_icons.py
+        run: uv run --project pipeline pytest -q pipeline/tests scripts/test_sync_icons.py scripts/test_validation_cases.py
 
       - uses: actions/setup-node@v5
         with:
